@@ -45,6 +45,9 @@ class SubjectsController < ApplicationController
   end
 
   def destroy
+    @standard = Standard.find(params[:id])
+    @standard.update_attributes(current: false)
+    redirect_to standards_path
   end
   def update_subjects
     # updates artists and songs based on genre selected

@@ -25,6 +25,11 @@ class StandardsController < ApplicationController
       redirect_to new_standard_path
     end
   end
+  def destroy
+    @standard = Standard.find(params[:id])
+    @standard.update_attributes(current: false)
+    redirect_to standards_path
+  end
 
   def update_ledger
   	@students.each do |student|

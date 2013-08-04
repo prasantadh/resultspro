@@ -1,14 +1,19 @@
 %div.container
+	= render "standards/standards_bar"
 	- if @standards.count > 0
 		-@standards.each do |standard|
 			%div.row
 				%div.span2
+					%strong Name:
 					= standard.name
 				%div.span2
-					= standard.student.count
+					%strong Student Count:
+					= standard.students.count
 				%div.span2
-
-
+					%strong Subject Count
+					= standard.subjects.count
+				%div.span2
+					= link_to "remove", standard_path(standard.id), method: :delete 
 	- else 
 		Sorry, you have no standards currently.
 		= link_to "Add a Standard", new_standard_path, class: " btn btn-primary"
