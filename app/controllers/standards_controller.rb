@@ -7,6 +7,9 @@ class StandardsController < ApplicationController
   def edit_ledger
     ## all requirements met in variables
   end
+  def index
+    @standards = Standard.where(current: true)
+  end
 
   def new
     @standards = Standard.all

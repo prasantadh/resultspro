@@ -1,0 +1,14 @@
+%div.container
+	- if @standards.count > 0
+		-@standards.each do |standard|
+			%div.row
+				%div.span2
+					= standard.name
+				%div.span2
+					= standard.student.count
+				%div.span2
+
+
+	- else 
+		Sorry, you have no standards currently.
+		= link_to "Add a Standard", new_standard_path, class: " btn btn-primary"
