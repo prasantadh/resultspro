@@ -42,3 +42,9 @@
 				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
 					%a{ href: standard_subject_combinations_path(standard.id) }
 						= standard.name
+	- elsif request.fullpath.include? "standards/new"
+		- if @standards.count > 0
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{ href: new_standard_path }
+						= standard.name

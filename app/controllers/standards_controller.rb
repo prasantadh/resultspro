@@ -8,6 +8,21 @@ class StandardsController < ApplicationController
     ## all requirements met in variables
   end
 
+  def new
+    @standards = Standard.all
+    @standard = Standard.new
+  end
+
+  def create
+    @standard = Standard.new(params[:standard])
+    @standard.save
+    if params[:commit] == "Create" 
+      redirect_to root_path
+    else
+      redirect_to new_standard_path
+    end
+  end
+
   def update_ledger
   	@students.each do |student|
   		@subjects.each do |subject|

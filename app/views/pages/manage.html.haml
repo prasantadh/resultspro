@@ -12,13 +12,13 @@
 					= link_to "Create New Exam", new_exam_path, class: "btn btn-primary"
 		%strong 
 			%u Settings
-		%div.form-horizontal{id: "manage_students"}	
+		%div.form-horizontal{id: "manage_standards"}	
 			%div
-				%strong Students:
+				%strong Standards
 			%div
-				= link_to "Add New Student", new_student_path, class: "btn btn-primary input-large"
+				= link_to "Add New Standard", new_standard_path(), class: "btn btn-primary input-large"
 				OR
-				= link_to "Browse Current Students", students_path, class: "btn btn-primary input-xlarge"
+				= link_to "Browse Current Standards", standards_path, class: "btn btn-primary input-xlarge"
 		%div.form-horizontal{id: "manage_subjects"}	
 			%div
 				%strong Subjects:
@@ -33,3 +33,12 @@
 				= link_to "Add New Subject Combination", new_subject_combination_path(), class: "btn btn-primary input-large"
 				OR
 				= link_to "Browse Current Subject Combinations", subjects_path, class: "btn btn-primary input-xlarge"
+		%div.form-horizontal{id: "manage_students"}	
+			%div
+				%strong Students:
+			%div
+				= link_to "Add New Student", new_student_path, class: "btn btn-primary input-large"
+				OR
+				= link_to "Browse Current Students", students_path, class: "btn btn-primary input-xlarge"
+
+
