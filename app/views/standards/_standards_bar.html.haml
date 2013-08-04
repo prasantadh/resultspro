@@ -1,0 +1,44 @@
+%ul.nav.nav-tabs
+	- if request.fullpath.include? "edit_ledger"
+		- @standards.each do |standard|
+			%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+				%a{ href: exam_standard_edit_ledger_path(params[:exam_id], standard.id) }
+					= standard.name
+	- elsif request.fullpath.include? "students"
+		- if request.fullpath.include? "students/new"	
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{ href: new_standard_student_path(standard.id) }
+						= standard.name
+		- elsif request.fullpath.include? "students"
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{href: standard_students_path(standard.id)}
+						= standard.name
+	- elsif request.fullpath.include? "mark_sheets"
+		- @standards.each do |standard|
+			%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+				%a{ href: exam_standard_mark_sheets_path(params[:exam_id], standard.id) }
+					= standard.name
+	- elsif request.fullpath.include? "subjects"	
+		- if request.fullpath.include? "new"
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{ href: new_standard_subject_path(standard.id) }
+						= standard.name
+		- else
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{ href: standard_subjects_path(standard.id) }
+						= standard.name
+	- elsif request.fullpath.include? "subject_combinations"	
+		- if request.fullpath.include? "new"
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{ href: new_standard_subject_combination_path(standard.id) }
+						= standard.name
+		- else
+			- @standards.each do |standard|
+				%li{class: ("active" if (params[:standard_id].to_i == standard.id) )}
+					%a{ href: standard_subject_combinations_path(standard.id) }
+						= standard.name

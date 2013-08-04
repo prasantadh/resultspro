@@ -1,0 +1,17 @@
+@media print{
+	.nav, .navbar, .btn, #print {
+		display: none;
+		background-color: none;
+	}
+	#individual_mark_sheet {
+		page-break-before: always;
+	}
+	.mark-sheets{
+		background: none;
+		max-height: 1000px;
+	}
+	.well{
+		background: none;
+		background-color: none;
+	}
+}

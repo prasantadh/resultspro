@@ -1,0 +1,14 @@
+%div.container
+	= render "standards/standards_bar"
+	= form_for @subject_combination do |f|
+		= f.label :name
+		= f.text_field :name
+		%br
+		Choose the subjects in the combination
+		- @subjects.each do |subject|
+			%label.checkbox
+				= subject.name
+				= check_box_tag("subject[#{subject.id}]")
+		= hidden_field_tag(:standard_id, params[:standard_id])
+
+		= f.submit "Create", class: "btn btn-primary"

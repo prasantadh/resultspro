@@ -1,0 +1,13 @@
+Roll:
+= @student.roll
+
+Name: 
+= @student.name
+
+Standard:
+= @student.standard.name
+
+Subjects:
+- @student.standard.subjects.each do |subject|
+	= subject.name
+	%br

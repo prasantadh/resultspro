@@ -1,0 +1,7 @@
+= @standard_ids
+%p.form-horizontal
+	= form_for @exam do |f|
+		= f.label :name, "Create New Exam"
+		= f.text_field :name
+		%br
+		= f.submit "Go",  class: "btn btn-primary"

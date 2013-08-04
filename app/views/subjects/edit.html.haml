@@ -1,0 +1,6 @@
+= form_for @subject do |f|
+	= f.check_box :current, value: false
+	= f.submit("Update", class: "btn btn-primary", id: "submit")
+	= hidden_field_tag(:standard_id, params[:standard_id].to_i)
+:javascript
+	$('document').ready(function(){document.getElementById("submit").click();});

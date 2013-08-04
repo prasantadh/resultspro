@@ -1,0 +1,26 @@
+Okay now here goes the sheet to edit every mark!!
+/= @marks.inspect
+/= params[:exam_id]
+%table{border: "1", width: "100%"}
+	%tr	
+		%th Roll
+		%th Name
+		- @subjects.each do |s|
+			%th 
+				= s.name
+		%th	Total
+		%th	Percentage
+		%th	Division
+		%th	Position
+		%th	Remarks
+	- @students.each do |student|
+		%tr
+			%td
+				= student.roll
+			%td
+				= student.name
+			- @subjects.each do |subject|
+				%td
+					- m = Mark.find(:all, conditions: ["student_id = ? AND subject_id = ? ", student.id, subject.id])
+					= m[0].mark.to_i + 32
+

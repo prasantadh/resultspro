@@ -1,0 +1,29 @@
+= render 'standards/standards_bar'
+- if params[:standard_id]	
+	%div.container
+		%div.row
+			%div.span2
+				%strong Name
+			%div.span2
+				%strong Roll
+			%div.span2
+				%strong Subject Combination
+
+		= form_tag(controller: :students, action: :edit_multiple) do
+			- @students.each do |student|
+				%div.row
+					%div.span2.form-horizontal
+						%div.checkbox
+							%label
+								= check_box_tag("student_ids[]", student.id)
+								= student.name
+					%div.span2
+						= student.roll
+					%div.span2
+						= student.subject_combination.name
+			= submit_tag("Edit Selected", class: "btn btn-primary")
+- else
+	%p Select a class to browse students from:
+	- @standards.each do |standard|
+		= link_to standard.name, standard_students_path(standard.id), class: "btn btn-primary input-small"
+		%br 

@@ -1,0 +1,26 @@
+= params.inspect
+= @subject_combinations.inspect
+= params[:commit] == "Update" && params[:student][:standard_id].blank? 
+- if params[:standard_id]
+	= form_for :student, :url => update_multiple_standard_students_path, html: {method: :put} do |f|
+		%p Any changes made will be applied to all of the following students:
+		%div.container
+			%div.row	
+				- @students.each do |student|
+					= hidden_field_tag "student_ids[]", student.id
+					%div.span2
+						= student.name
+				= f.hidden_field :name
+				= f.hidden_field :roll
+
+		= f.label  :subject_combination_id, "Subject Combination"
+		= f.select :subject_combination_id, @subject_combinations.map{|standard| [standard.name, standard.id]},{include_blank: "Choose a combination."}
+		
+		= f.hidden_field :standard_id, value: params[:student][:standard_id]
+
+		%br
+		= f.submit "Finish", class: "btn btn-primary"
+- else
+	%p Select a class to add a student to
+	- @standards.each do |standard|
+		= link_to standard.name, standard_students_path(standard.id), class: "btn btn-primary input-small"

@@ -1,0 +1,148 @@
+= render 'standards/standards_bar'
+= link_to "PRINT", request.fullpath ,onclick: "window.print()" , id: "print", class: "btn btn-primary"
+- students_info = peers()
+%div.hero-unit.well
+	- @students.each_with_index do |student, index|
+		%div.container.mark-sheets{id: ("individual_mark_sheet" if (index != 0))}
+			%table{border: 1, width: "100%"}
+				%center
+					%p 
+						%i
+							%u Quality Education Today's Need 
+					%p.school-name 
+						%strong Triveny Public Higher Secondary School
+					%p
+						Lekhnath-2 Arghaun, Kaski
+						%br
+						061-560569
+					%p
+						= Exam.find(params[:exam_id]).name
+					%p
+						%strong 
+							%u MARKSHEET
+				%div.row
+					%div.span5
+						Name:
+						= student.name
+					%div.span2
+						Roll No:
+						= student.roll
+				%div.row
+					%div.span6
+						Class:
+						= Standard.find(params[:standard_id]).name
+				%table{border: 1, width: "92%"}
+					%tr
+						%th{rowspan: 2 } S.N
+						%th{rowspan: 2 } Subjects
+						%th{colspan: 2 } F.M
+						%th{colspan: 2 } P.M
+						%th{colspan: 2 } Obtained Marks
+						%th{rowspan: 2 } Total 
+						%th{rowspan: 2 } Class Highest
+					%tr
+						%th Th.
+						%th Pr.
+						%th Th.
+						%th Pr.
+						%th Th.
+						%th Pr.
+					- serial_number = 1
+					%center
+						- @subjects.each do |subject|
+							- m = student.marks.where(exam_id: params[:exam_id], subject_id: subject.id)
+							- if m[0]
+								%tr
+									%td 
+										= serial_number
+										- serial_number += 1
+									%td 
+										= subject.name
+									%td
+										= subject.full_mark - subject.practical_full_mark.to_i
+									%td
+										= subject.practical_full_mark
+									%td
+										= subject.practical_full_mark
+									%td
+										= subject.practical_pass_mark 
+									%td
+										= m[0].th_mark
+									%td
+										= m[0].pr_mark
+									%td 
+										= m[0].th_mark.to_i + m[0].pr_mark.to_i
+									%td
+									
+					/ - else     # display format for standards subjects without practicals
+					/ 	%tr
+					/ 		%th S.N
+					/ 		%th Subjects
+					/ 		%th F.M
+					/ 		%th P.M
+					/ 		%th Obtained Marks
+					/ 		%th Class Highest
+					/ 	- @subjects.each do |subject|
+					/ 		- m = student.marks.where(exam_id: params[:exam_id], subject_id: subject.id)
+					/ 		- if m[0]
+					/ 			%tr
+					/ 				%td 1
+					/ 				%td 
+					/ 					= subject.name
+					/ 				%td
+					/ 					= subject.full_mark
+					/ 				%td
+					/ 					= subject.pass_mark
+					/ 				%td
+					/ 					= m[0].th_mark
+					/ 				%td
+					/ 					= "  " 
+					/ %tr
+					/ 	%td
+					/ 	%td
+					/ 		Total:
+					/ 	- 6.times do
+					/ 		%td
+					/ 	%td
+					/ 		= total(student)
+					/ 	%td
+
+									
+				%table{border: 1, width: "92%", frame: "vsides"}
+					%tr
+						%td
+							Division:
+							= division(student) || "....."
+						%td
+							Position:
+							- if pass_all_subjects(student)
+								- students_info.each do |student_info|
+									= student_info[:position] if ( student_info[:student_id] == student.id )
+					%tr
+						%td
+							Percentage:
+							= (number_with_precision(percent(student), precision: 1 ) if percent(student) != 0) || "....."
+						%td
+							Attendance:
+				%table{border: 1, width: "92%"}
+					%tr
+						%td
+							Remark: 
+							= remarks(student)
+							%br
+							%br
+				%table{border: 0, width: "92%"}
+					%tr
+						%td
+							%br
+							%br
+							Issued On:
+							= Date.today
+						%td
+							%br
+							%br
+							Class Teacher
+						%td
+							%br
+							%br
+							Principal

@@ -1,0 +1,3 @@
+- @standards.each do |standard|
+	= link_to standard.name,exam_standard_edit_ledger_path(params[:id], standard.id), class: "btn btn-primary input-small"
+	%br 	

@@ -1,0 +1,25 @@
+%div.container
+	= render 'standards/standards_bar'
+	- if params[:standard_id]
+		= form_for @student do |f|
+			= f.label :name
+			= f.text_field :name
+			%br
+
+			= f.label :roll
+			= f.text_field :roll
+			%br
+			- if @subject_combinations != [] 
+				= f.select :subject_combination_id, @subject_combinations.map{|subject_combination| [subject_combination.name, subject_combination.id]}
+			- else
+				= f.hidden_field :subject_combination_id, value: nil
+
+			= f.hidden_field :standard_id, value: params[:standard_id]	
+			%br
+			= f.submit "Create And Add New", class: "btn btn-primary"
+			= f.submit "Add", class: "btn btn-primary"
+	- else
+		%p Select a class to add a student to
+		- @standards.each do |standard|
+			= link_to standard.name, new_standard_student_path(standard.id), class: "btn btn-primary input-small"
+			%br 

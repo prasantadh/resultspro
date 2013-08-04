@@ -1,0 +1,42 @@
+%div.container
+	= render "standards/standards_bar"
+	%div.hero-unit
+		%div.row
+			%div.span3
+				%strong
+					Name
+			%div.span1
+				%strong
+					F.M
+			%div.span1
+				%strong
+					P.M
+			%div.span1
+				%strong
+					Practical
+			%div.span2
+				%strong
+					Practical Full Mark
+			%div.span2
+				%strong
+					Practical Pass Mark
+		- @subjects.count
+		- @subjects.each do |subject|
+			%div.row
+				%div.span3
+					= subject.name
+					= link_to "Remove", edit_standard_subject_path(params[:standard_id],subject.id), class: "sublink"
+				%div.span1
+					= subject.full_mark
+				%div.span1
+					= subject.pass_mark
+				%div.span1
+					= "yes" if subject.practical
+				%div.span2
+					= subject.practical_full_mark
+				%div.span2
+					= subject.practical_pass_mark
+		= link_to "Add New Subject", new_standard_subject_path(params[:standard_id]), class: "btn btn-primary"
+					
+						
+

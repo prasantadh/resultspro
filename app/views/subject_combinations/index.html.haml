@@ -1,0 +1,21 @@
+%div.container
+	= render "standards/standards_bar"
+	%div.row
+		%div.span3
+			%strong	Subject Combination
+		%div.span7
+			%strong	Subjects
+		%hr
+	- @subject_combinations.each do |subject_combination|
+		%div.row
+			%div.span3
+				= subject_combination.name
+				= link_to "remove", standard_subject_combination_path(params[:standard_id], subject_combination.id), method: :delete, class: "sublink"
+			%div.span6
+				- subject_combination.subjects.each do |subject|
+					%div
+						= subject.name
+				%hr
+	= link_to "Add New Subject Combination", new_subject_combination_path(params[:standard_id]), class: "btn btn-primary"
+
+

@@ -1,0 +1,29 @@
+%div.container
+	= render "standards/standards_bar"
+	You are about to add subject to
+	%strong 
+		Class
+		= Standard.find(params[:standard_id]).name
+	= form_for @subject do |f|
+		= f.label :name
+		= f.text_field :name
+
+		= f.hidden_field :standard_id, value: params[:standard_id].to_i
+
+		= f.label :full_mark, "Full Mark"
+		= f.text_field :full_mark
+
+		= f.label :pass_park, "Pass Mark"
+		= f.text_field :pass_mark
+		%label.checkbox
+			= "Yes, the subject has practicals."
+			= f.check_box(:practical)
+
+		= f.label :practical_full_mark, "Practical Full Mark"
+		= f.text_field :practical_full_mark
+
+		= f.label :practical_pass_mark, "Practical Pass Mark"
+		= f.text_field :practical_pass_mark
+		%br
+		= f.submit("Create and Add new Subject", class: "btn btn-primary")
+		= f.submit("Create", class: "btn btn-primary")

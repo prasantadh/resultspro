@@ -1,0 +1,84 @@
+= render 'standards_bar'
+
+/ Page Rendered in 
+/ = sprintf('%.3f', (Time.now.usec - @start_time).abs / 1000000.0)
+/ seconds
+= link_to "PRINT", request.fullpath ,onclick: "window.print()" , id: "print", class: "btn btn-primary"
+- students_info = peers()	#initializing variable to prevent looping while printing position
+= form_for :mark,url: exam_standard_update_ledger_path,html: {method: :put} do |f|
+	%table{border: "1", width: "100%"}
+		%tr	
+			%th{rowspan: 2} Roll
+			%th{rowspan: 2} Name
+			- @subjects.each do |s|
+				- if s.practical == true
+					%th{colspan: 2}
+						= s.name
+				- else
+					%th
+						= s.name
+			%th{rowspan: 2}	Total
+			%th{rowspan: 2} Result
+			%th{rowspan: 2}	Percentage
+			%th{rowspan: 2}	Division
+			%th{rowspan: 2}	Position
+			/ %th{rowspan: 2}	Remarks
+		%tr
+			- @subjects.each do |s|
+				- if s.practical == true
+					%td
+						Th.
+					%td
+						Pr.
+				- else
+					%td
+						Th
+
+		- @students.each do |student|
+			%tr.form-horizontal
+				%td
+					%center
+						= student.roll
+				%td
+					%center
+						= student.name
+				- @subjects.each do |subject|
+					- m = student.marks.where(exam_id: params[:exam_id], subject_id: subject.id)
+					- if subject.practical == true 
+						%td
+							%center
+								- if m[0] 
+									= text_field_tag("mark[#{student.id}][#{subject.id}][0]", m[0].th_mark, placeholder: '...', class: "input-mark")
+						%td
+							%center
+								- if m[0]
+									= text_field_tag("mark[#{student.id}][#{subject.id}][1]", m[0].pr_mark, placeholder: '...', class: "input-mark")
+					- else
+						%td
+							%center
+								- if m[0]
+									= text_field_tag("mark[#{student.id}][#{subject.id}][0]", m[0].th_mark, placeholder: '...', class: "input-mark")
+				%td
+					%center
+						= (total(student) if total(student) != 0) || "....." # fix to use just total()
+				%td
+					%center
+						= (result(student) if total(student) != 0 ) || "....."
+				%td
+					%center
+						= (number_with_precision(percent(student), precision: 1 ) if percent(student) != 0) || "....."		
+				%td
+					%center
+						- if pass_all_subjects(student)
+							= division(student) || "....."
+						- else
+							"No Division!"				
+				%td
+					%center
+						- if pass_all_subjects(student)
+							- students_info.each do |student_info|
+								= student_info[:position] if ( student_info[:student_id] == student.id )
+						- else
+							"No Position!"
+	= f.submit "Update", class: "btn btn-primary btn-large"
+= link_to "View Mark Sheets", exam_standard_mark_sheets_path(params[:exam_id], params[:standard_id]), class: "btn btn-primary"

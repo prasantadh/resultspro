@@ -1,0 +1,47 @@
+= render 'standards/standards_bar'
+%div.container
+	= form_for :student, :url => update_multiple_standard_students_path, html: {method: :put} do |f|
+		- if @students.count > 1
+			%p 
+				Any changes made will be applied to 
+				%strong ALL 
+				of the following students:
+		
+		%div.row	
+			- @students.each do |student|
+				= hidden_field_tag "student_ids[]", student.id
+				%div.span2
+					= student.name
+		- if @students.count == 1  
+			= f.label :name
+			= f.text_field :name, value: @students[0].name
+
+			= f.label :roll
+			= f.text_field :roll, value: @students[0].roll
+		- else
+			= f.hidden_field :name
+			= f.hidden_field :roll
+
+		= f.label :standard_id, "Standard: "
+		= f.select :standard_id, @standards.map{|standard| [standard.name, standard.id]},{include_blank: "No longer in School"}
+	
+		= f.label :standard_id, "Standard: "
+		= f.select :subject_combination_id, @subject_combinations.map{|combination| [combination.name, combination.id]},{include_blank: "Select Standard"}
+	
+
+		%br
+		= f.submit "Update", class: "btn btn-primary"
+%p{id:"hi"}
+
+:javascript
+	$('document').ready(function() {
+		$('#student_standard_id').change(function() {
+			$.ajax({
+				url: "#{update_subject_combination_path}",
+				data: {
+					student_standard_id : $('#student_standard_id').val()
+				},
+				dataType: "script"
+			});
+		});
+	});
