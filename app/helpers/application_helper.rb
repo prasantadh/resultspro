@@ -10,6 +10,14 @@ module ApplicationHelper
 		return total
 	end
 
+	def class_highest(subject)
+		max = Array.new()
+		subject.marks.where(exam_id: params[:exam_id]).each do |subject|
+			max << (subject.th_mark.to_i + subject.pr_mark.to_i)
+		end
+		return max.max
+	end
+
 	def percent(student)
 		full_mark = 0
 		@required_marks = Mark.where("exam_id = ? AND standard_id = ? AND student_id = ?",params[:exam_id], params[:standard_id], student.id)

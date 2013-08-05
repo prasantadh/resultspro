@@ -14,4 +14,10 @@
 		background: none;
 		background-color: none;
 	}
+	body{
+		padding: none;
+	}
+	@page :first {
+  		margin-top: 0cm;
+	}
 }

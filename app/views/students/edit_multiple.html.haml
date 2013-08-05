@@ -25,8 +25,9 @@
 		= f.label :standard_id, "Standard: "
 		= f.select :standard_id, @standards.map{|standard| [standard.name, standard.id]},{include_blank: "No longer in School"}
 	
-		= f.label :standard_id, "Standard: "
-		= f.select :subject_combination_id, @subject_combinations.map{|combination| [combination.name, combination.id]},{include_blank: "Select Standard"}
+		= f.label :subject_combination_id, "Standard Combination: "
+		= f.select :subject_combination_id, ["Select Standard"]
+		/ @subject_combinations.map{|combination| [combination.name, combination.id]},{include_blank: "Select Standard"}
 	
 
 		%br
