@@ -17,7 +17,7 @@
 			= f.hidden_field :standard_id, value: params[:standard_id]	
 			%br
 			= f.submit "Create And Add New", class: "btn btn-primary"
-			= f.submit "Add", class: "btn btn-primary"
+			= f.submit "Create", class: "btn btn-primary"
 	- else
 		%p Select a class to add a student to
 		- @standards.each do |standard|

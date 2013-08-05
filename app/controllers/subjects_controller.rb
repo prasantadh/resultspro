@@ -23,9 +23,9 @@ class SubjectsController < ApplicationController
     @subject = Subject.new(params[:subject])
     @subject.save
     if params[:commit] == "Create"
-      redirect_to subject_path(@subject)
+      redirect_to standard_subjects_path(params[:subject][:standard_id])
     else
-      redirect_to new_standard_subject_path(params[:standard_id])
+      redirect_to new_standard_subject_path(params[:subject][:standard_id])
     end
   end
 

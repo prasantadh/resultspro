@@ -18,11 +18,12 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(params[:student])
+    @standards = Standard.where(current: true)
     if @student.save
-      if params[:commit] == "Create And Add New"
-        redirect_to new_standard_student_path(params[:student][:standard_id])
+      if params[:commit] == "Create"
+        redirect_to standard_students_path(params[:student][:standard_id])
       else
-        redirect_to standard_student_path(params[:student][:standard_id],@student.id)
+        redirect_to new_standard_student_path(params[:student][:standard_id])
       end
     else
      render 'new'

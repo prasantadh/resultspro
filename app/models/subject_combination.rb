@@ -6,7 +6,7 @@ class SubjectCombination < ActiveRecord::Base
   
   belongs_to :standard
   
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :standard_id, presence: true
 end
 

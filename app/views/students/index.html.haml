@@ -20,7 +20,7 @@
 					%div.span2
 						= student.roll
 					%div.span2
-						= student.subject_combination.name
+						= student.subject_combination.name if student.subject_combination
 			= submit_tag("Edit Selected", class: "btn btn-primary")
 - else
 	%p Select a class to browse students from:

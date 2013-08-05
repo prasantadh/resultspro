@@ -4,7 +4,6 @@ class Student < ActiveRecord::Base
   has_many :marks
   has_many :subjects, through: :marks
   attr_accessible :standard_id, :subject_combination_id, :name, :roll, :current
-  validates :subject_combination_id, presence: true
   validates :name, presence: true
   validates :roll, presence: true
   

@@ -11,19 +11,21 @@ class ExamsController < ApplicationController
   def create
   	@exam = Exam.new(params[:exam])
   	@exam.save
-  	@standards = Standard.where(current: true) ## customize this to get only the current standards
+  	@standards = Standard.where(current: true)
   	@standard_ids = @standards.map{|s| s.id}
-  	@students  = Student.where("standard_id IN (?)", @standard_ids, current: true)
+  	@students  = Student.where("current = ? AND standard_id IN (?)", true, @standard_ids)
   	@subjects = Subject.where(current: true)
   	@subject_ids = @subjects.map{|s| s.id}
   	@students.each do |student|
   		@subjects.each do |subject|
-        if student.standard.subject_combinations != []
-          if student.subject_combination.subjects.include?(Subject.find(subject.id))
-  			   Mark.create(exam_id: @exam.id, standard_id: student.standard.id, student_id: student.id, subject_id: subject.id)  	
+        if student.standard.subject_combinations != []  ## if the standard has subject combinations
+          if student.subject_combination.subjects.include?(Subject.find(subject.id))  ##for the subjects taken by student
+  			   Mark.create(exam_id: @exam.id, standard_id: student.standard.id, student_id: student.id, subject_id: subject.id)   	
           end
-        else
-          Mark.create(exam_id: @exam.id, standard_id: student.standard.id, student_id: student.id, subject_id: subject.id) 
+        else  ## if the standard does not have subject combinations
+          if student.standard.subjects.include? Subject.find(subject.id) ## if the subject belongs to the student's standard
+            Mark.create(exam_id: @exam.id, standard_id: student.standard.id, student_id: student.id, subject_id: subject.id) 
+          end
         end	
   		end
   	end
