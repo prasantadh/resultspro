@@ -21,7 +21,6 @@ module ApplicationHelper
 	def percent(student)
 		full_mark = 0
 		@required_marks = Mark.where("exam_id = ? AND standard_id = ? AND student_id = ?",params[:exam_id], params[:standard_id], student.id)
-		# subject_ids = get_ids(@required_marks, "subject_id")
 		subject_ids = @required_marks.map{|r| r.subject_id}
 		Mark.where("student_id = ? AND exam_id = ? AND standard_id = ? AND subject_id IN (?)", student.id, params[:exam_id], params[:standard_id], subject_ids).each do |mark|
 			full_mark += mark.subject.full_mark

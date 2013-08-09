@@ -5,5 +5,5 @@ class Standard < ActiveRecord::Base
   has_many :marks
   # belongs_to :subject_combination_datails
   attr_accessible :name, :current
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 end

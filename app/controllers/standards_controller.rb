@@ -12,7 +12,7 @@ class StandardsController < ApplicationController
   end
 
   def new
-    @standards = Standard.all
+    @standards = Standard.where(current: true)
     @standard = Standard.new
   end
 
