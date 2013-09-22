@@ -61,19 +61,19 @@
 										%td 
 											= subject.name
 										%td
-											= subject.full_mark - subject.practical_full_mark.to_i
+											= (subject.full_mark - subject.practical_full_mark.to_i) if subject.full_mark
 										%td
-											= subject.practical_full_mark
+											= subject.practical_full_mark 
 										%td
 											= subject.practical_full_mark
 										%td
 											= subject.practical_pass_mark 
 										%td
-											= m[0].th_mark
+											= m[0].grade || m[0].th_mark
 										%td
 											= m[0].pr_mark
 										%td 
-											= m[0].th_mark.to_i + m[0].pr_mark.to_i
+											= m[0].grade || m[0].th_mark.to_i + m[0].pr_mark.to_i
 										%td
 											= class_highest(subject)
 

@@ -36,7 +36,11 @@ class StandardsController < ApplicationController
   		@subjects.each do |subject|
   			@record = Mark.where("exam_id = ? AND student_id = ? AND subject_id = ?", @exam_id, student.id, subject.id)
         if @record[0]
-    			@record[0].update_attributes(th_mark: params[:mark]["#{student.id}"]["#{subject.id}"]["0"], pr_mark: params[:mark]["#{student.id}"]["#{subject.id}"]["1"])
+          if subject.grades == true
+            @record[0].update_attributes(grade: params[:mark]["#{student.id}"]["#{subject.id}"]["0"])
+          else
+      			@record[0].update_attributes(th_mark: params[:mark]["#{student.id}"]["#{subject.id}"]["0"], pr_mark: params[:mark]["#{student.id}"]["#{subject.id}"]["1"])
+          end
         end
   		end
   	end

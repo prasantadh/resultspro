@@ -14,11 +14,11 @@
 			%u Settings
 		%div.form-horizontal{id: "manage_standards"}	
 			%div
-				%strong Standards
+				%strong Classes:
 			%div
-				= link_to "Add New Standard", new_standard_path(), class: "btn btn-primary input-large"
+				= link_to "Add New Class", new_standard_path(), class: "btn btn-primary input-large"
 				OR
-				= link_to "Browse Current Standards", standards_path, class: "btn btn-primary input-xlarge"
+				= link_to "Browse Current Classes", standards_path, class: "btn btn-primary input-xlarge"
 		%div.form-horizontal{id: "manage_subjects"}	
 			%div
 				%strong Subjects:
@@ -28,7 +28,7 @@
 				= link_to "Browse Current Subjects", subjects_path, class: "btn btn-primary input-xlarge"
 		%div.form-horizontal{id: "manage_subject_combinations"}	
 			%div
-				%strong Subject Combinations
+				%strong Subject Combinations:
 			%div
 				= link_to "Add New Subject Combination", new_subject_combination_path(), class: "btn btn-primary input-large"
 				OR

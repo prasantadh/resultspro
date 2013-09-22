@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802225649) do
+ActiveRecord::Schema.define(:version => 20130921153203) do
 
   create_table "exams", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20130802225649) do
     t.datetime "updated_at",  :null => false
     t.integer  "standard_id"
     t.integer  "pr_mark"
+    t.string   "grade"
   end
 
   create_table "standards", :force => true do |t|
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20130802225649) do
     t.integer  "practical_full_mark"
     t.integer  "practical_pass_mark"
     t.boolean  "current",             :default => true
+    t.boolean  "grades"
   end
 
 end

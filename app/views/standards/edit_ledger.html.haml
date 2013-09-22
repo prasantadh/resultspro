@@ -3,6 +3,7 @@
 / Page Rendered in 
 / = sprintf('%.3f', (Time.now.usec - @start_time).abs / 1000000.0)
 / seconds
+= @subjects.each{|a| puts a.name}
 = link_to "PRINT", request.fullpath ,onclick: "window.print()" , id: "print", class: "btn btn-primary"
 - students_info = peers()	#initializing variable to prevent looping while printing position
 = form_for :mark,url: exam_standard_update_ledger_path,html: {method: :put} do |f|
@@ -57,7 +58,10 @@
 						%td
 							%center
 								- if m[0]
-									= text_field_tag("mark[#{student.id}][#{subject.id}][0]", m[0].th_mark, placeholder: '...', class: "input-mark")
+									- if subject.grades == true
+										= text_field_tag("mark[#{student.id}][#{subject.id}][0]", m[0].grade, placeholder: '...', class: "input-mark")
+									- else
+										= text_field_tag("mark[#{student.id}][#{subject.id}][0]", m[0].th_mark, placeholder: '...', class: "input-mark")
 				%td
 					%center
 						= (total(student) if total(student) != 0) || "....." # fix to use just total()

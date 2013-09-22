@@ -11,11 +11,15 @@ module ApplicationHelper
 	end
 
 	def class_highest(subject)
-		max = Array.new()
-		subject.marks.where(exam_id: params[:exam_id]).each do |subject|
-			max << (subject.th_mark.to_i + subject.pr_mark.to_i)
+		if subject.grades != true
+			marks = Array.new()
+			subject.marks.where(exam_id: params[:exam_id]).each do |subject|
+				marks << (subject.th_mark.to_i + subject.pr_mark.to_i)
+			end
+			return marks.max
+		else
+
 		end
-		return max.max
 	end
 
 	def percent(student)
@@ -23,11 +27,12 @@ module ApplicationHelper
 		@required_marks = Mark.where("exam_id = ? AND standard_id = ? AND student_id = ?",params[:exam_id], params[:standard_id], student.id)
 		subject_ids = @required_marks.map{|r| r.subject_id}
 		Mark.where("student_id = ? AND exam_id = ? AND standard_id = ? AND subject_id IN (?)", student.id, params[:exam_id], params[:standard_id], subject_ids).each do |mark|
-			full_mark += mark.subject.full_mark
+			full_mark += mark.subject.full_mark if mark.subject.grades != true
 		end
 		percent = ((total(student).to_f / full_mark) * 100)
 		return percent
 	end	
+	
 	def remarks(student)
 		if percent(student) > 90
 			remark = "Absolutely Wonderful! "
@@ -109,12 +114,14 @@ module ApplicationHelper
 	def pass_all_subjects(student)
 		@exam_id = params[:exam_id]
 		@subjects.each do |subject|
-			subject_mark = student.marks.where(subject_id: subject.id, exam_id: @exam_id)[0]
-			if subject_mark
-				obtained_mark = subject_mark.th_mark
-				pass_mark = subject.pass_mark
-				if obtained_mark.to_i < pass_mark
-					return false
+			if subject.grades != true
+				subject_mark = student.marks.where(subject_id: subject.id, exam_id: @exam_id)[0]
+				if subject_mark
+					obtained_mark = subject_mark.th_mark
+					pass_mark = subject.pass_mark
+					if obtained_mark.to_i < pass_mark
+						return false
+					end
 				end
 			end
 		end

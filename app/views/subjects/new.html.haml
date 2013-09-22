@@ -8,13 +8,18 @@
 		= f.label :name
 		= f.text_field :name
 
-		= f.hidden_field :standard_id, value: params[:standard_id].to_i
+		= f.hidden_field :standard_id, value: params[:standard_id].to_i 
 
 		= f.label :full_mark, "Full Mark"
 		= f.text_field :full_mark
 
 		= f.label :pass_park, "Pass Mark"
 		= f.text_field :pass_mark
+
+		%label.checkbox
+			= "The subject is graded, not marked."
+			= f.check_box(:grades)
+
 		%label.checkbox
 			= "Yes, the subject has practicals."
 			= f.check_box(:practical)

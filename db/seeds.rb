@@ -21,6 +21,9 @@ end
 Subject.find(4).update_attributes!(practical: true, practical_full_mark: 25, practical_pass_mark: 10)
 Subject.find(13).update_attributes!(practical: true, practical_full_mark: 25, practical_pass_mark: 10)
 Subject.find(22).update_attributes!(practical: true, practical_full_mark: 25, practical_pass_mark: 10)
+Subject.find(5).update_attributes!(full_mark: nil, pass_mark: nil, grades: true)
+Subject.find(6).update_attributes!(full_mark: nil, pass_mark: nil, grades: true)
+Subject.find(7).update_attributes!(full_mark: nil, pass_mark: nil, grades: true)
 
 ## setup combinations for the first standard
 ["Computer Group", "Account Group"].each do |subject_combination|
@@ -119,11 +122,17 @@ SubjectCombinationDetail.create(standard_id: 3, subject_id: 27, subject_combinat
 		(1..27).each do |r|
 	        if Student.find(q).standard.subject_combinations != []  ## if the standard has subject combinations
 	          if Student.find(q).subject_combination.subjects.include?(Subject.find(r))  ##for the subjects taken by student
-	  			   Mark.create(exam_id: p, standard_id: Student.find(q).standard.id, student_id: q, subject_id: r, th_mark: rand(40..99))   	
+		  		mark = Mark.create(exam_id: p, standard_id: Student.find(q).standard.id, student_id: q, subject_id: r, th_mark: rand(40..99))
+				if r == 5 || r == 6 || r == 7
+					mark.update_attributes(th_mark: nil)
+				end
 	          end
 	        else  ## if the standard does not have subject combinations
-	          if Student.find(q).standard.subjects.include? Subject.find() ## if the subject belongs to the student's standard
-	            Mark.create(exam_id: p, standard_id: Student.find(q).standard.id, student_id: q, subject_id: r, th_mark: rand(40..99)) 
+	          if Student.find(q).standard.subjects.include?(Subject.find(r)) ## if the subject belongs to the student's standard
+	          	mark = Mark.create(exam_id: p, standard_id: Student.find(q).standard.id, student_id: q, subject_id: r, th_mark: rand(40..99))
+	          	if r == 5 || r == 6 || r == 7
+	          		mark.update_attributes(th_mark: nil)
+	          	end
 	          end
 	        end
 		end
