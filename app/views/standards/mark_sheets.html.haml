@@ -1,8 +1,11 @@
 = render 'standards/standards_bar'
 = link_to "PRINT", request.fullpath ,onclick: "window.print()" , id: "print", class: "btn btn-primary"
 - students_info = peers()
+
 %div.hero-unit
 	- @students.each_with_index do |student, index|
+		- # if using devise, use these lines
+		- # if can?(current_user, :administrate) || current_user.id == student.id
 		%div.container.mark-sheets{id: ("individual_mark_sheet" if (index != 0))}
 			%table{border: 1, width: "100%"}
 				%center

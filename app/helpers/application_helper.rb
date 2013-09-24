@@ -11,14 +11,16 @@ module ApplicationHelper
 	end
 
 	def class_highest(subject)
-		if subject.grades != true
-			marks = Array.new()
-			subject.marks.where(exam_id: params[:exam_id]).each do |subject|
-				marks << (subject.th_mark.to_i + subject.pr_mark.to_i)
-			end
-			return marks.max
+		marks = Array.new()
+		grades = Array.new()
+		subject.marks.where(exam_id: params[:exam_id]).each do |subject_score|
+			grades << subject_score.grade 
+			marks << (subject_score.th_mark.to_i + subject_score.pr_mark.to_i)
+		end
+		if subject.grades == true
+			return grades.min
 		else
-
+			return marks.max
 		end
 	end
 
