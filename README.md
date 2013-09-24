@@ -4,7 +4,7 @@ resultspro
 For installation:
 Open up the command line, run the following commands:
 
-git clone https://github.com/prasantadh/resultspro.git
+git clone https://github.com/prasantadh/resultspro.git <br/>
 cd resultspro
 bundle install
 rake db:schema:load
