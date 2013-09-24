@@ -15,4 +15,6 @@ rails server <br />
 [ if you trying to test the software, run 'rake db:seed' to fill in the sample data. ]<br />
 
 Then on a web browser, open localhost:3000 and configure the application to fit your school environment.<br />
-Keep checking this page for a video link on how to configure the software.
+Keep checking this page for a video link on how to configure the software.<br />
+
+For additional support, contact: prasantadhikari@yahoo.com
